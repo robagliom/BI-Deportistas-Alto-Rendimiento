@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import  os
-from . import  local
+from .local import  DATABASES
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'modules.datoobjetivo',
+    'modules.datosubjetivo',
+    'modules.deportista',
+    'modules.enfermedad',
+    'modules.institucion',
+    'modules.lesion',
+    'modules.permiso',
+    'modules.usuario',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +59,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'bi_deportistas_alto_rendimiento.settings.urls'
+ROOT_URLCONF = 'settings.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'bi_deportistas_alto_rendimiento.settings.wsgi.application'
+WSGI_APPLICATION = 'settings.wsgi.application'
 
 
 

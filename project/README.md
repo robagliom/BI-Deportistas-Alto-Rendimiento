@@ -4,7 +4,7 @@
 2. Activar entorno virtual: source proyectoFinal/bin/activate (windows: proyectoFinal\Scripts\activate.bat)
 3. Instalar mysqlclient https://pypi.org/project/mysqlclient/
 4. Instalar requerimientos: pip install -r requirements.txt
-5. Crear archivo de configuración en bi_deportistas_alto_rendimiento/settings/local.py:
+5. Crear archivo de configuración en settings/local.py:
 ~~~
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -20,3 +20,4 @@ DATABASES = {
     }
 }
 ~~~
+6. Crear migración BD: python manage.py migrate.
