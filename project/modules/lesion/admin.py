@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Lesion
 
-# Register your models here.
+@admin.register(Lesion)
+class LesionAdmin(admin.ModelAdmin):
+    pass

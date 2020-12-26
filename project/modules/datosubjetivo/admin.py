@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import DatoSubjetivo
 
-# Register your models here.
+@admin.register(DatoSubjetivo)
+class DatoSubjetivoAdmin(admin.ModelAdmin):
+    pass

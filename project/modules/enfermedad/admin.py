@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Enfermedad
 
-# Register your models here.
+@admin.register(Enfermedad)
+class EnfermedadAdmin(admin.ModelAdmin):
+    pass
