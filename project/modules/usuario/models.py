@@ -9,4 +9,4 @@ class Usuario(models.Model):
     telefono = models.CharField(max_length=20)
     contraseña = models.CharField(max_length=50)
     activo = models.BooleanField(default=True)
-    permisos = models.ManyToManyField(Permiso)
+    permisos = models.ManyToManyField(Permiso, blank=True)
