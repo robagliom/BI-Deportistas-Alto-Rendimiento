@@ -7,16 +7,22 @@
     <title>{% block title %}{% endblock %}</title>
 
     <!-- Font Awesome -->
-    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'fontawesome/css/all.css' %}" rel="stylesheet">
+    <link href="{% static 'fontawesome/scss/fontawesome.scss' %}" rel="stylesheet">
+
     <!-- Material Design for Bootstrap -->
-    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/mdb.rtl.min.css' %}" rel="stylesheet">
+    <link href="{% static 'mdbootstrap/css/mdb.min.css' %}" rel="stylesheet">
+    <link href="{% static 'mdbootstrap/css/mdb.rtl.min.css' %}" rel="stylesheet">
 </head>
 
 <body>
-    {% block content %} {% endblock %}
+    {% include 'navbar.html' %} {% block content %} {% endblock %}
+
+    <!-- Font Awesome -->
+    <script src="{% static 'fontawesome/js/all.js' %}"></script>
+    <script src="{% static 'fontawesome/less/fontawesome.less' %}"></script>
     <!-- Material Design for Bootstrap -->
-    <script src="{% static 'js/mdb.min.js' %}"></script>
+    <script src="{% static 'mdbootstrap/js/mdb.min.js' %}"></script>
 
 </body>
 
