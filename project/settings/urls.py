@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 from modules.auxiliar import urls as auxiliar_urls
 from modules.datoobjetivo import urls as datoobjetivo_urls
@@ -37,4 +39,4 @@ urlpatterns = [
     path('lesion/', include(lesion_urls)),
     path('permiso/', include(permiso_urls)),
     path('usuario/', include(usuario_urls)),
-] 
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
