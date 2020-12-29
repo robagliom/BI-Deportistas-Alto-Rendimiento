@@ -3,20 +3,25 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from . import views
+from modules.usuario.models import Usuario
 
 def index(request):
+    c = usuario_logueado(request)
+    return render(request, 'index.html',context=c)
+
+def usuario_logueado(request):
     usuario_logueado = False
     usuario = None
 
     if request.user.is_authenticated:
         usuario_logueado = True
-        usuario = request.user.username
+        usuario = Usuario.objects.get(documento=request.user.username).nombre
 
     c = {
             'usuario_logueado':usuario_logueado,
             'usuario':usuario,
          }
-    return render(request, 'index.html',context=c)
+    return c
 
 def logout_view(request):
     logout(request)

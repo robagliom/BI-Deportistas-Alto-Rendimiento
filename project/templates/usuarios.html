@@ -1,0 +1,59 @@
+{% extends 'base.html' %}{% load bootstrap %} {% block title %}Usuarios{% endblock %} {% block content %}
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="crear-usuario" data-mdb-toggle="tab" href="#crear-usuario-tab" role="tab" aria-controls="crear-usuario-tab" aria-selected="true">Crear</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="modificar-usuario"
+        data-mdb-toggle="tab"
+        href="#modificar-usuario-tab"
+        role="tab"
+        aria-controls="modificar-usuario-tab"
+        aria-selected="false"
+        >Modificar</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="eliminar-usuario"
+        data-mdb-toggle="tab"
+        href="#eliminar-usuario-tab"
+        role="tab"
+        aria-controls="eliminar-usuario-tab"
+        aria-selected="false"
+        >Eliminar</a
+      >
+    </li>
+  </ul>
+  <!-- Tabs navs -->
+  
+  <!-- Tabs content -->
+  <div class="tab-content" id="ex1-content">
+    <div class="tab-pane fade show active" id="crear-usuario-tab" role="tabpanel" aria-labelledby="crear-usuario">
+        <form action="{% url 'crear_usuario' %}" method="POST">
+            {% csrf_token %}  
+            {{ form|bootstrap }}
+            <br>
+            <button type="submit" class="btn btn-primary btn-block">Crear</button>
+        </form>
+        {%if accionOk%}
+        <br>
+        <div class="alert alert-success" role="success">
+            El usuario {{usuario_creado}} ha sido creado correctamente.
+        </div>
+        {%endif%}
+    </div>
+    <div class="tab-pane fade" id="modificar-usuario-tab" role="tabpanel" aria-labelledby="modificar-usuario">
+      Tab 2 content
+    </div>
+    <div class="tab-pane fade" id="eliminar-usuario-tab" role="tabpanel" aria-labelledby="eliminar-usuario">
+      Tab 3 content
+    </div>
+  </div>
+  <!-- Tabs content -->
+{% endblock %}

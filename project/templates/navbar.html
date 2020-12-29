@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             {% if usuario_logueado %}
             <ul class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#" title="Usuarios">Usuarios</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'crear_usuario' %}" title="Usuarios">Usuarios</a>
                 <a class="nav-link" href="#" title="Importar">Importar</a>
                 <a class="nav-link" href="#" title="Exportar">Exportar</a>
                 <a class="nav-link" href="#" title="Datos Objetivos">Datos Objetivos</a>
