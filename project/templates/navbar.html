@@ -1,21 +1,37 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light text-center">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'index' %}">PF - G8</a>
         <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars"></i>
       </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#">Usuarios</a>
-                <a class="nav-link" href="#">Importar</a>
-                <a class="nav-link" href="#">Exportar</a>
-                <a class="nav-link" href="#">Datos Objetivos</a>
-                <a class="nav-link" href="#">Datos Subjetivos</a>
-                <a class="nav-link" href="#">Lesiones Enfermedades</a>
-                <a class="nav-link" href="#">Análisis completo</a>
-                <a class="nav-link" href="#">Instituciones</a>
-                <a class="nav-link" href="#">Deportistas</a>
-            </div>
+            {% if usuario_logueado %}
+            <ul class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="#" title="Usuarios">Usuarios</a>
+                <a class="nav-link" href="#" title="Importar">Importar</a>
+                <a class="nav-link" href="#" title="Exportar">Exportar</a>
+                <a class="nav-link" href="#" title="Datos Objetivos">Datos Objetivos</a>
+                <a class="nav-link" href="#" title="Datos Subjetivos">Datos Subjetivos</a>
+                <a class="nav-link" href="#" title="Lesiones Enfermedades">Lesiones Enfermedades</a>
+                <a class="nav-link" href="#" title="Análisis completo">Análisis completo</a>
+                <a class="nav-link" href="#" title="Instituciones">Instituciones</a>
+                <a class="nav-link" href="#" title="Deportistas">Deportistas</a>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-user"></i> {{usuario}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
+                </li>
+            </ul>
+            {%else%}
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login_template' %}" title="Login"><i class="fas fa-sign-in-alt"></i></a>
+                </li>
+            </ul>
+            {% endif %}
         </div>
     </div>
 </nav>
