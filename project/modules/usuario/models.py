@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from ..permiso.models import Permiso
 from ..institucion.models import Institucion
 
@@ -19,3 +20,6 @@ class Usuario(models.Model):
 
     def __str__(self):
         return ('{} - {} {}').format(self.documento,self.apellido,self.nombre)
+
+    def get_absolute_url(self):
+        return reverse('editar_usuario')

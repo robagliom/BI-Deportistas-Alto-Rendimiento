@@ -2,17 +2,19 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 import string
 import random
 from settings.local import EMAIL_HOST_USER
 from modules.auxiliar.views import usuario_logueado
+from .models import Usuario
 from .forms import UsuarioForm
 
 @login_required
 def crear(request):
     accionOk = None
-    usuario_creado = None
-    error = None
+    accionReturn = None
     if request.method == 'POST':
         form = UsuarioForm(request.POST)
         if form.is_valid():
@@ -23,7 +25,6 @@ def crear(request):
             usuario.save()
             user = User.objects.create_user(usuario.documento,usuario.email,usuario.contraseña)
             user.save()
-            usuario_creado = '{} {}'.format(usuario.nombre,usuario.apellido)
             try:
                 send_mail(
                     'Datos de ingreso BI en Deportistas de Alto Rendimiento',
@@ -32,9 +33,10 @@ def crear(request):
                     [usuario.email],
                     fail_silently=False,
                 )
+                accionReturn = 'El usuario {} {} ha sido creado correctamente.'.format(usuario.nombre,usuario.apellido)
             except Exception as e:
                 accionOk = False
-                error = "Ocurrió un error al enviar los datos de acceso por email. Error: {}".format(e)
+                accionReturn = "Ocurrió un error al enviar los datos de acceso por email. Error: {}".format(e)
     form = UsuarioForm()
 
     c = {
@@ -42,26 +44,65 @@ def crear(request):
         'usuario':request.user.username,
         'form': form,
         'accionOk': accionOk,
-        'usuario_creado': usuario_creado,
-        'error': error,
+        'accionReturn': accionReturn,
         }
-    return render(request, 'usuarios.html',context=c)
+    return render(request, 'usuario/usuario_crear.html',context=c)
+
+class UsuarioUpdate(UpdateView):
+    model = Usuario
+    fields = ['documento','nombre','apellido','email','telefono','permisos','institucion']
+    template_name = 'usuario/usuario_editar.html'
+    success_url = reverse_lazy('usuario_editado',kwargs={'accionOk':True,'accionReturn':'Usuario editado correctamente.'})
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['usuario_select'] = True
+        context['usuario_logueado']=True
+        context['usuario']=self.request.user.username
+        context['usuarios']=Usuario.objects.filter(activo=True)
+        return context
+
+    def form_invalid(self, form):
+        return reverse_lazy('usuario_editado',kwargs={'accionOk':False,'accionReturn':'Error: {}.'.format(form.errors)})
 
 @login_required
-def editar(request):
+def editar(request,accionOk=None,accionReturn=None):
+    usuarios = Usuario.objects.filter(activo=True)
+    
     c = {
         'usuario_logueado':True,
         'usuario':request.user.username,
+        'usuarios':usuarios,
+        'accionOk':accionOk,
+        'accionReturn':accionReturn,
         }
-    return render(request, 'usuarios.html',context=c)
+    return render(request, 'usuario/usuario_editar.html',context=c)
 
 @login_required
 def eliminar(request):
+    accionOk = None
+    accionReturn = None
+    usuarios = Usuario.objects.filter(activo=True)
+
+    if request.method == 'POST':
+        try:
+            usuario_eliminado = Usuario.objects.get(pk=int(request.POST['usuario_pk']))
+            user_eliminado = User.objects.filter(username=usuario_eliminado.documento).first()
+            usuario_eliminado.delete()
+            user_eliminado.delete()
+            accionOk = True
+            accionReturn = 'El usuario {} ha sido eliminado correctamente.'.format(usuario_eliminado)
+        except Exception as e:
+            accionOk = False
+            accionReturn = "Ocurrió un error al eliminar el usuario. Error: {}".format(e) 
     c = {
         'usuario_logueado':True,
         'usuario':request.user.username,
+        'usuarios':usuarios,
+        'accionOk':accionOk,
+        'accionReturn':accionReturn,
         }
-    return render(request, 'usuarios.html',context=c)
+    return render(request, 'usuario/usuario_eliminar.html',context=c)
 
 def password_generator(length=8):
     '''
