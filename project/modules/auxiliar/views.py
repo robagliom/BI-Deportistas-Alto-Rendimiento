@@ -15,7 +15,10 @@ def usuario_logueado(request):
 
     if request.user.is_authenticated:
         usuario_logueado = True
-        usuario = Usuario.objects.get(documento=request.user.username).nombre
+        try:
+            usuario = Usuario.objects.get(documento=request.user.username).nombre
+        except:
+            usuario = request.user.username
 
     c = {
             'usuario_logueado':usuario_logueado,

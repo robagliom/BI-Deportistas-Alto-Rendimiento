@@ -13,6 +13,7 @@ class Usuario(models.Model):
     permisos = models.ManyToManyField(Permiso)
     institucion = models.ForeignKey(Institucion, models.SET_NULL, null=True)
 
+    objects = models.Manager()
     class Meta:
         verbose_name_plural = "Usuarios"
 

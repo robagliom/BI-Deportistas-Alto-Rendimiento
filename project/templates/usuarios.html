@@ -47,6 +47,12 @@
             El usuario {{usuario_creado}} ha sido creado correctamente.
         </div>
         {%endif%}
+        {%if not accionOk%}
+        <br>
+        <div class="alert alert-danger" role="danger">
+            {{error}}
+        </div>
+        {%endif%}
     </div>
     <div class="tab-pane fade" id="modificar-usuario-tab" role="tabpanel" aria-labelledby="modificar-usuario">
       Tab 2 content
