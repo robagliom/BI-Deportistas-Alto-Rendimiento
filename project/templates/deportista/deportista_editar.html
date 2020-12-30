@@ -1,26 +1,26 @@
-{% extends 'base.html' %}{% load bootstrap %} {% block title %}Instituciones{% endblock %} {% block content %}
+{% extends 'base.html' %}{% load bootstrap %} {% block title %}Deportistas{% endblock %} {% block content %}
 <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
     <li class="nav-item" role="presentation">
-        <a class="nav-link" href="{% url 'crear_institucion' %}">Crear</a>
+        <a class="nav-link" href="{% url 'crear_deportista' %}">Crear</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link active" href="{% url 'editar_institucion' %}">editar</a>
+        <a class="nav-link active" href="{% url 'editar_deportista' %}">editar</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" href="{% url 'eliminar_institucion' %}">Eliminar</a>
+        <a class="nav-link" href="{% url 'eliminar_deportista' %}">Eliminar</a>
     </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade show active" id="editar-institucion-tab" role="tabpanel" aria-labelledby="editar-institucion">
-        <select class="form-select" aria-label="Default select example" id="institucion_select">
-          <option selected>Elija institución</option>
-          {%for i in instituciones%}
-          <option value="{% url 'editar_institucion_pk' i.pk %}">{{i.nombre}}</option>
+    <div class="tab-pane fade show active" id="editar-deportista-tab" role="tabpanel" aria-labelledby="editar-deportista">
+        <select class="form-select" aria-label="Default select example" id="deportista_select">
+          <option selected>Elija deportista</option>
+          {%for i in deportistas%}
+          <option value="{% url 'editar_deportista_pk' i.pk %}">{{i.documento}} - {{i.nombre}} {{i.apellido}}</option>
           {%endfor%}
         </select>
     </div>
-    <br> {% if institucion_select %}
+    <br> {% if deportista_select %}
     <form method="post">
         {% csrf_token %} {{ form|bootstrap }}
         <br>
@@ -43,7 +43,7 @@
         window.location = goto;
     }
 
-    var selectEl = document.getElementById('institucion_select');
+    var selectEl = document.getElementById('deportista_select');
 
     selectEl.onchange = function() {
         var goto = this.value;

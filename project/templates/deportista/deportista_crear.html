@@ -1,0 +1,42 @@
+{% extends 'base.html' %}{% load bootstrap %} {% block title %}Deportistas{% endblock %} {% block content %}
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" href="{% url 'crear_deportista' %}">Crear</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" href="{% url 'editar_deportista' %}">editar</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" href="{% url 'eliminar_deportista' %}">Eliminar</a
+      >
+    </li>
+  </ul>
+  <!-- Tabs navs -->
+  
+  <!-- Tabs content -->
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="crear-deportista-tab" role="tabpanel" aria-labelledby="crear-deportista">
+        <form action="{% url 'crear_deportista' %}" method="POST">
+            {% csrf_token %}  
+            {{ form|bootstrap }}
+            <br>
+            <button type="submit" class="btn btn-primary btn-block">Crear</button>
+        </form>
+        {%if accionOk == True%}
+        <br>
+        <div class="alert alert-success" role="success">
+            {{accionReturn}}
+        </div>
+        {%elif accionOk == False%}
+        <br>
+        <div class="alert alert-danger" role="danger">
+            {{accionReturn}}
+        </div>
+        {%endif%}
+    </div>
+  </div>
+  <!-- Tabs content -->
+{% endblock %}

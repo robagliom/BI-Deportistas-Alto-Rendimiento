@@ -8,6 +8,7 @@ import string
 import random
 from settings.local import EMAIL_HOST_USER
 from modules.auxiliar.views import usuario_logueado
+from modules.institucion.models import Institucion
 from .models import Usuario
 from .forms import UsuarioForm
 
@@ -38,6 +39,7 @@ def crear(request):
                 accionOk = False
                 accionReturn = "Ocurrió un error al enviar los datos de acceso por email. Error: {}".format(e)
     form = UsuarioForm()
+    form.fields['institucion'].queryset = Institucion.objects.filter(activo=True)
 
     c = {
         'usuario_logueado':True,
@@ -62,6 +64,7 @@ class UsuarioUpdate(UpdateView):
         context['usuario']=self.request.user.username
         context['usuarios']=Usuario.objects.filter(activo=True)
         context['nav_id']='nav_usuarios'
+        context['form'].fields['institucion'].queryset = Institucion.objects.filter(activo=True)
         return context
 
     def form_invalid(self, form):
