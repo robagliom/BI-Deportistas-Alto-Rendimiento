@@ -87,9 +87,11 @@ def eliminar(request):
     if request.method == 'POST':
         try:
             usuario_eliminado = Usuario.objects.get(pk=int(request.POST['usuario_pk']))
+            usuario_eliminado.activo = False
+            usuario_eliminado.save()
             user_eliminado = User.objects.filter(username=usuario_eliminado.documento).first()
-            usuario_eliminado.delete()
-            user_eliminado.delete()
+            user_eliminado.is_active = False
+            user_eliminado.save()
             accionOk = True
             accionReturn = 'El usuario {} ha sido eliminado correctamente.'.format(usuario_eliminado)
         except Exception as e:
