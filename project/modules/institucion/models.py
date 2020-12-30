@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Institucion(models.Model):
     nombre = models.CharField(max_length=50)
@@ -11,8 +12,12 @@ class Institucion(models.Model):
     telefono = models.CharField(max_length=20)
     activo = models.BooleanField(default=True)
 
+    objects = models.Manager()
     class Meta:
         verbose_name_plural = "Instituciones"
 
     def __str__(self):
-        return ('{} - {}').format(self.pk,self.nombre)
+        return ('{}').format(self.nombre)
+
+    def get_absolute_url(self):
+        return reverse('editar_institucion')

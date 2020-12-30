@@ -42,6 +42,7 @@ def crear(request):
     c = {
         'usuario_logueado':True,
         'usuario':request.user.username,
+        'nav_id':'nav_usuarios',
         'form': form,
         'accionOk': accionOk,
         'accionReturn': accionReturn,
@@ -60,6 +61,7 @@ class UsuarioUpdate(UpdateView):
         context['usuario_logueado']=True
         context['usuario']=self.request.user.username
         context['usuarios']=Usuario.objects.filter(activo=True)
+        context['nav_id']='nav_usuarios'
         return context
 
     def form_invalid(self, form):
@@ -72,6 +74,7 @@ def editar(request,accionOk=None,accionReturn=None):
     c = {
         'usuario_logueado':True,
         'usuario':request.user.username,
+        'nav_id':'nav_usuarios',
         'usuarios':usuarios,
         'accionOk':accionOk,
         'accionReturn':accionReturn,
@@ -100,6 +103,7 @@ def eliminar(request):
     c = {
         'usuario_logueado':True,
         'usuario':request.user.username,
+        'nav_id':'nav_usuarios',
         'usuarios':usuarios,
         'accionOk':accionOk,
         'accionReturn':accionReturn,
