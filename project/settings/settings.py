@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrapform',
+    'import_export',
     'modules.auxiliar',
     'modules.datoobjetivo',
     'modules.datosubjetivo',
@@ -127,3 +128,6 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+
+#https://django-import-export.readthedocs.io/en/latest/getting_started.html#creating-import-export-resource
+IMPORT_EXPORT_USE_TRANSACTIONS = True  

@@ -7,7 +7,6 @@ class DatoSubjetivo(models.Model):
         ('RO', 'Rojo'),
         ('AM', 'Amarillo')
     ]
-    deportista = models.ForeignKey(Deportista, models.SET_NULL,null=True)
     fecha = models.DateTimeField(null=True)
     inpregunta1	= models.CharField(max_length=50,null=True)
     inpregunta2	= models.CharField(max_length=50,null=True)
@@ -17,6 +16,7 @@ class DatoSubjetivo(models.Model):
     colorIn = models.CharField(max_length=2,choices=COLORES,default='VE')
     outpregunta1 = models.CharField(max_length=50,null=True)
     colorOut = models.CharField(max_length=2,choices=COLORES,default='VE')
+    deportista = models.ForeignKey(Deportista, models.SET_NULL,null=True)
 
     class Meta:
         verbose_name_plural = "Datos Subjetivos"
