@@ -4,14 +4,16 @@
     <br> {% block contenido %}
     <form action="{% url 'importar' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <select class="form-select" aria-label="Default select example" name="tipo_dato_select">
+        <select class="form-select" aria-label="Default select example" name="tipo_dato_select" id="tipo_dato_select">
             <option selected>Tipo de datos</option>
             <option value="DatoObjetivo">Datos objetivos</option>
             <option value="DatoSubjetivo">Datos subjetivos</option>
             <option value="Lesion">Lesiones</option>
-            <option value="Enfermedad">Enfermedes</option>
+            <option value="Enfermedad">Enfermedades</option>
         </select>
         <br>
+        <a id="modelo_download" class="btn btn-outline-primary disabled" type="button" download>Descargar modelo</a>
+        <br></br>
         <input type="file" class="form-control" id="customFile" name="xlsfile" required/>
         <br>
         <button type="submit" class="btn btn-primary btn-block">Importar</button>
@@ -29,4 +31,18 @@
     </div>
     {%endif%}
 </div>
+<script>
+    function add_href(url) {
+        document.getElementById('modelo_download').href = "/static/import/templates/" + url + ".xlsx";
+        document.getElementById('modelo_download').classList.remove("disabled");
+    }
+
+    var selectEl = document.getElementById('tipo_dato_select');
+
+    selectEl.onchange = function() {
+        var url = this.value;
+        add_href(url);
+
+    };
+</script>
 {% endblock %}
