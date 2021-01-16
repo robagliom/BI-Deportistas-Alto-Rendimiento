@@ -17,7 +17,7 @@
                 <a class="nav-link" id="nav_instituciones" href="{% url 'crear_institucion' %}" title="Instituciones">Instituciones</a>
                 <a class="nav-link" id="nav_deportistas" href="{% url 'crear_deportista' %}" title="Deportistas">Deportistas</a>
             </ul>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-user"></i> {{usuario}}</a>
                 </li>
@@ -26,7 +26,7 @@
                 </li>
             </ul>
             {%else%}
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login_template' %}" title="Login"><i class="fas fa-sign-in-alt"></i></a>
                 </li>
