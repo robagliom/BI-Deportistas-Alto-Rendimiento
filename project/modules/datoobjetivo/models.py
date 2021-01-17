@@ -2,6 +2,7 @@ from django.db import models
 from ..deportista.models import Deportista
 
 class DatoObjetivo(models.Model):
+    deportista = models.ForeignKey(Deportista, models.SET_NULL, null=True)
     evento = models.CharField(max_length=50)
     fecha = models.DateTimeField(null=True)
     distanceTotal = models.DecimalField(null=True, max_digits=8,decimal_places=2)
@@ -17,7 +18,6 @@ class DatoObjetivo(models.Model):
     velMax = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     totalTime = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     eee = models.DecimalField(null=True, max_digits=8,decimal_places=2)
-    deportista = models.ForeignKey(Deportista, models.SET_NULL, null=True)
 
     class Meta:
         verbose_name_plural = "Datos Objetivos"

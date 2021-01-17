@@ -68,10 +68,8 @@ def importar(request):
                 datos_resource = EnfermedadResource()        
             dataset = Dataset()
             nuevos_datos = request.FILES['xlsfile']  
-            imported_data = dataset.load(nuevos_datos.read())
-            result = datos_resource.import_data(dataset, dry_run=True) # Test the data import 
-            if not result.has_errors():  
-                datos_resource.import_data(dataset, dry_run=False) # Actually import now  
+            dataset.load(nuevos_datos.read())
+            datos_resource.import_data(dataset, dry_run=False)
             accionOk = True
             accionReturn = 'Los datos se importaron correctamente.'
         except Exception as e:

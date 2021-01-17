@@ -2,6 +2,7 @@ from django.db import models
 from ..deportista.models import Deportista
 
 class DatoSubjetivo(models.Model):
+    deportista = models.ForeignKey(Deportista, models.SET_NULL,null=True)
     COLORES = [
         ('VE', 'Verde'),
         ('RO', 'Rojo'),
@@ -16,7 +17,6 @@ class DatoSubjetivo(models.Model):
     colorIn = models.CharField(max_length=2,choices=COLORES,default='VE')
     outpregunta1 = models.CharField(max_length=50,null=True)
     colorOut = models.CharField(max_length=2,choices=COLORES,default='VE')
-    deportista = models.ForeignKey(Deportista, models.SET_NULL,null=True)
 
     class Meta:
         verbose_name_plural = "Datos Subjetivos"
