@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block title %}Exportar datos{% endblock %} {% block content %}
+<div class="container text-center">
+    <h2>Exportar Datos</h2>
+    <br> {% block contenido %}
+    <form action="{% url 'exportar_datos' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <select class="form-select" aria-label="Default select example" name="tipo_dato_select" id="tipo_dato_select">
+            <option value="Todos" selected>Todos</option>
+            <option value="DatoObjetivo">Datos objetivos</option>
+            <option value="DatoSubjetivo">Datos subjetivos</option>
+            <option value="Lesion">Lesiones</option>
+            <option value="Enfermedad">Enfermedades</option>
+        </select>
+        <br>
+        <button type="submit" class="btn btn-primary btn-block">Exportar</button>
+    </form>
+    {% endblock %}
+    <br> {%if accionOk == True%}
+    <br>
+    <div class="alert alert-success" role="success">
+        {{accionReturn}}
+    </div>
+    {%elif accionOk == False%}
+    <br>
+    <div class="alert alert-danger" role="danger">
+        {{accionReturn}}
+    </div>
+    {%endif%}
+</div>
+{% endblock %}

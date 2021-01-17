@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+import datetime
 from tablib import Dataset 
 from . import views
 from modules.usuario.models import Usuario
@@ -79,3 +80,39 @@ def importar(request):
     c['accionOk'] = accionOk
     c['accionReturn'] = accionReturn
     return render(request, 'importar/importar.html',context=c)
+
+@login_required
+def exportar(request):
+    c = usuario_logueado(request)
+    return render(request, 'exportar/exportar.html',context=c)
+
+@login_required
+def exportar_datos(request):
+    c = usuario_logueado(request)
+    if request.method == 'POST':  
+        try:
+            tipo_export = request.POST['tipo_dato_select']
+            if tipo_export == 'DatoObjetivo':
+                datos_resource = DatoObjetivoResource()
+                nombre_export = "DatosObjetivos"
+            elif tipo_export == 'DatoSubjetivo':
+                datos_resource = DatoSubjetivoResource()
+                nombre_export = "DatosSubjetivos"
+            elif tipo_export == 'Lesion':
+                datos_resource = LesionResource()
+                nombre_export = "Lesiones"
+            elif tipo_export == 'Enfermedad':
+                datos_resource = EnfermedadResource()
+                nombre_export = "Enfermedades"
+            # else:
+            #     datos_resource = TodosResource()
+            dataset = datos_resource.export()
+            response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'attachment; filename="{}_{}.xls"'.format(datetime.datetime.now().strftime('%Y-%m-%d-%H%M'),nombre_export)
+            return response
+        except Exception as e:
+            accionOk = False
+            accionReturn = 'Algo salió mal. Error: {}'.format(e)
+            c['accionOk'] = accionOk
+            c['accionReturn'] = accionReturn
+            return render(request, 'exportar/exportar.html',context=c)    

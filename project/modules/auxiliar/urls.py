@@ -8,4 +8,6 @@ urlpatterns = [
     path('login_template', views.login_template, name='login_template'),
     path('login', views.login_view, name='login'),
     path('importar/', views.importar, name='importar'),
+    path('exportar/', views.exportar, name='exportar'),
+    path('exportar/datos/', views.exportar_datos, name='exportar_datos'),
 ]
