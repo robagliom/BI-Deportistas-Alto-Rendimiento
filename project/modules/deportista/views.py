@@ -4,10 +4,12 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from tablib import Dataset 
 from modules.auxiliar.views import usuario_logueado
 from modules.institucion.models import Institucion
 from .models import Deportista
 from .forms import DeportistaForm
+from .admin import  DeportistaResource
 
 @login_required
 def crear(request):
@@ -35,6 +37,37 @@ def crear(request):
         'accionReturn': accionReturn,
         }
     return render(request, 'deportista/deportista_crear.html',context=c)
+
+@login_required
+def crear_multiple(request):
+    accionOk = None
+    accionReturn = None
+    instituciones = Institucion.objects.all()
+
+    if request.method == 'POST':
+        try:
+            institucion = request.POST['institucion_select']
+            datos_resource = DeportistaResource()        
+            dataset = Dataset()
+            nuevos_datos = request.FILES['deportistasxlsfile']
+            dataset.load(nuevos_datos.read())
+            datos_resource.import_data(dataset, dry_run=False)
+            accionOk = True
+            accionReturn = "Los deportistas han sido creado correctamente."
+        except Exception as e:
+            accionOk = False
+            accionReturn = "Ocurrió un error al crear los deportistas. Error: {}".format(e)
+
+    c = {
+        'usuario_logueado':True,
+        'usuario':request.user.username,
+        'nav_id':'nav_deportistas',
+        'accionOk': accionOk,
+        'accionReturn': accionReturn,
+        'instituciones': instituciones,
+        }
+    return render(request, 'deportista/deportista_crear_multiple.html',context=c)
+
 
 class DeportistaUpdate(UpdateView):
     model = Deportista
