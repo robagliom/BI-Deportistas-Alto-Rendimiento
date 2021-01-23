@@ -55,6 +55,7 @@ def importar(request):
     c = usuario_logueado(request)
     accionOk = None
     accionReturn = None
+    c["nav_id"]="nav_importar"
     if request.method == 'POST':  
         try:
             tipo_import = request.POST['tipo_dato_select']
@@ -82,11 +83,13 @@ def importar(request):
 @login_required
 def exportar(request):
     c = usuario_logueado(request)
+    c["nav_id"]="nav_exportar"
     return render(request, 'exportar/exportar.html',context=c)
 
 @login_required
 def exportar_datos(request):
     c = usuario_logueado(request)
+    c["nav_id"]="nav_exportar"
     if request.method == 'POST':  
         try:
             tipo_export = request.POST['tipo_dato_select']
