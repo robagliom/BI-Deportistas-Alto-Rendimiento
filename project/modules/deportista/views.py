@@ -42,7 +42,7 @@ def crear(request):
 def crear_multiple(request):
     accionOk = None
     accionReturn = None
-    instituciones = Institucion.objects.all()
+    instituciones = Institucion.objects.filter(activo=True)
 
     if request.method == 'POST':
         try:
@@ -51,6 +51,8 @@ def crear_multiple(request):
             dataset = Dataset()
             nuevos_datos = request.FILES['deportistasxlsfile']
             dataset.load(nuevos_datos.read())
+            institucion_col = [institucion for i in range(dataset.height)]
+            dataset.append_col(institucion_col,header="institucion")
             datos_resource.import_data(dataset, dry_run=False)
             accionOk = True
             accionReturn = "Los deportistas han sido creado correctamente."
