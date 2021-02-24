@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from modules.auxiliar.views import usuario_logueado
 
-# Create your views here.
+def lesionesenfermedades(request):
+    c = usuario_logueado(request)
+    return render(request, 'visualizaciones/lesionesenfermedades.html',context=c)
