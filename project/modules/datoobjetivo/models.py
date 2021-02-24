@@ -12,11 +12,12 @@ class DatoObjetivo(models.Model):
     velMayor16 = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     velEntre16y20 = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     velEntre20y25 = models.DecimalField(null=True, max_digits=8,decimal_places=2)
+    velMayor25 = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     acceleration = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     deceleration = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     mpmi = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     velMax = models.DecimalField(null=True, max_digits=8,decimal_places=2)
-    totalTime = models.DecimalField(null=True, max_digits=8,decimal_places=2)
+    totalTime = models.CharField(null=True, max_length=15)
     eee = models.DecimalField(null=True, max_digits=8,decimal_places=2)
 
     class Meta:
