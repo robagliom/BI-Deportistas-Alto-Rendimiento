@@ -129,3 +129,8 @@ def eliminar(request):
         'accionReturn':accionReturn,
         }
     return render(request, 'deportista/deportista_eliminar.html',context=c)
+
+@login_required
+def analisiscompleto(request):
+    c = usuario_logueado(request)
+    return render(request, 'visualizaciones/análisisCompleto.html',context=c)

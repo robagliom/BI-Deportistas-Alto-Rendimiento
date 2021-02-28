@@ -9,4 +9,5 @@ urlpatterns = [
     path('editar/(?<str:accionOk>;<str:accionReturn>)', views.editar, name='deportista_editado'),
     path('editar_deportista/<int:pk>/', views.DeportistaUpdate.as_view(), name='editar_deportista_pk'),
     path('eliminar/', views.eliminar, name='eliminar_deportista'),
+    path('analisiscompleto/', views.analisiscompleto, name='analisiscompleto'),
 ]
