@@ -9,7 +9,7 @@ class DatoObjetivo(models.Model):
     mphi = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     d_mp5 = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     d_mphi = models.DecimalField(null=True, max_digits=8,decimal_places=2)
-    velMayor16 = models.DecimalField(null=True, max_digits=8,decimal_places=2)
+    velMenor16 = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     velEntre16y20 = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     velEntre20y25 = models.DecimalField(null=True, max_digits=8,decimal_places=2)
     velMayor25 = models.DecimalField(null=True, max_digits=8,decimal_places=2)
